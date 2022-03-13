@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Authors: Leslie Ng &amp; Laura Ospina-Rozo" />
+
+
+<title>Iridescence Untwined Statistical Analysis and Figures</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#section-TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#section-TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="section-TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="section-header">
+
+
+
+<h1 class="title toc-ignore">Iridescence Untwined Statistical Analysis and Figures</h1>
+<h4 class="author">Authors: Leslie Ng &amp; Laura Ospina-Rozo</h4>
+<h4 class="date">4/11/2021</h4>
+
+</div>
+
+
+<div id="section-introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This document is provided as supplementary information for the manuscript ‘Iridescence untwined: Honey bees can separate hue variations in space and time’.</p>
+<p>In our study, we demonstrate the relevance of separately considering the temporal and spatial components of iridescence by showing that our model species, honey bees, can separately attend to one property (temporal) whilst ignoring the other (spatial). Here we include analysis of the spectral curves form our stimulus, visual models and statistical tests for the results of behavioural experiments.</p>
+<p>All code is written in the R programming language unless specifically stated otherwise.</p>
+</div>
+<div id="section-libraries" class="section level1">
+<h1>Libraries</h1>
+<div class="sourceCode" id="section-cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb1-1"><a href="#section-cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pavo) <span class="co"># Spectral curves processing and color models</span></span>
+<span id="section-cb1-2"><a href="#section-cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># Data wrangling</span></span>
+<span id="section-cb1-3"><a href="#section-cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co"># Data wrangling</span></span>
+<span id="section-cb1-4"><a href="#section-cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># For fitting models</span></span>
+<span id="section-cb1-5"><a href="#section-cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa) <span class="co"># For model assumptions</span></span>
+<span id="section-cb1-6"><a href="#section-cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># For plotting</span></span>
+<span id="section-cb1-7"><a href="#section-cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="section-cb1-8"><a href="#section-cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb1-9"><a href="#section-cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;shiny&quot;</span>)</span></code></pre></div>
+</div>
+<div id="section-data" class="section level1">
+<h1>Data</h1>
+<div class="sourceCode" id="section-cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb2-1"><a href="#section-cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spectral data - raw</span></span>
+<span id="section-cb2-2"><a href="#section-cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-3"><a href="#section-cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Iridescent stimulus</span></span>
+<span id="section-cb2-4"><a href="#section-cb2-4" aria-hidden="true" tabindex="-1"></a>IriDataRaw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="section-cb2-5"><a href="#section-cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;../Data/1.IridescentDisc_RawSpectralData.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="section-cb2-6"><a href="#section-cb2-6" aria-hidden="true" tabindex="-1"></a>IriData <span class="ot">&lt;-</span> <span class="fu">as.rspec</span>(IriDataRaw[IriDataRaw<span class="sc">$</span>wl <span class="sc">&lt;=</span> <span class="dv">700</span>, ])</span>
+<span id="section-cb2-7"><a href="#section-cb2-7" aria-hidden="true" tabindex="-1"></a>IriData <span class="ot">&lt;-</span> <span class="fu">procspec</span>(IriData,  <span class="at">fixneg =</span> <span class="st">&quot;zero&quot;</span>)</span>
+<span id="section-cb2-8"><a href="#section-cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-9"><a href="#section-cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Backgrounds</span></span>
+<span id="section-cb2-10"><a href="#section-cb2-10" aria-hidden="true" tabindex="-1"></a>BkgDataRaw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="section-cb2-11"><a href="#section-cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;../Data/2.GreyBackgrounds_RawSpectralData.csv&quot;</span>,<span class="at">header=</span><span class="cn">TRUE</span>) </span>
+<span id="section-cb2-12"><a href="#section-cb2-12" aria-hidden="true" tabindex="-1"></a>BkgData <span class="ot">&lt;-</span> <span class="fu">as.rspec</span>(BkgDataRaw[BkgDataRaw<span class="sc">$</span>wl <span class="sc">&lt;=</span> <span class="dv">700</span> <span class="sc">&amp;</span> BkgDataRaw<span class="sc">$</span>wl <span class="sc">&gt;=</span> <span class="dv">300</span>, ])</span>
+<span id="section-cb2-13"><a href="#section-cb2-13" aria-hidden="true" tabindex="-1"></a>BkgData <span class="ot">&lt;-</span> <span class="fu">procspec</span>(BkgData, <span class="at">fixneg =</span> <span class="st">&quot;zero&quot;</span>)</span>
+<span id="section-cb2-14"><a href="#section-cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-15"><a href="#section-cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Distractors</span></span>
+<span id="section-cb2-16"><a href="#section-cb2-16" aria-hidden="true" tabindex="-1"></a>DisDataRaw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="section-cb2-17"><a href="#section-cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;../Data/3.Distractors_RawSpectralData.csv&quot;</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="section-cb2-18"><a href="#section-cb2-18" aria-hidden="true" tabindex="-1"></a>DisData <span class="ot">&lt;-</span> <span class="fu">as.rspec</span>(DisDataRaw[DisDataRaw<span class="sc">$</span>wl <span class="sc">&lt;=</span> <span class="dv">700</span> <span class="sc">&amp;</span> DisDataRaw<span class="sc">$</span>wl <span class="sc">&gt;=</span> <span class="dv">300</span>,])</span>
+<span id="section-cb2-19"><a href="#section-cb2-19" aria-hidden="true" tabindex="-1"></a>DisData <span class="ot">&lt;-</span> <span class="fu">procspec</span>(DisData, <span class="at">fixneg =</span> <span class="st">&quot;zero&quot;</span>)</span>
+<span id="section-cb2-20"><a href="#section-cb2-20" aria-hidden="true" tabindex="-1"></a>DisData <span class="ot">&lt;-</span> <span class="fu">procspec</span>(DisData, <span class="at">opt =</span> <span class="st">&quot;smooth&quot;</span>, <span class="at">span =</span> <span class="fl">0.05</span>)</span>
+<span id="section-cb2-21"><a href="#section-cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-22"><a href="#section-cb2-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Blue Stimulus</span></span>
+<span id="section-cb2-23"><a href="#section-cb2-23" aria-hidden="true" tabindex="-1"></a>BlueDataRaw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="section-cb2-24"><a href="#section-cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;../Data/4.BlueStimulus_RawSpectralData.csv&quot;</span>)</span>
+<span id="section-cb2-25"><a href="#section-cb2-25" aria-hidden="true" tabindex="-1"></a>BlueData <span class="ot">&lt;-</span> <span class="fu">as.rspec</span>(BlueDataRaw[BlueDataRaw<span class="sc">$</span>wl <span class="sc">&lt;=</span> <span class="dv">701</span> <span class="sc">&amp;</span> BlueDataRaw<span class="sc">$</span>wl <span class="sc">&gt;=</span> <span class="dv">300</span>,])</span>
+<span id="section-cb2-26"><a href="#section-cb2-26" aria-hidden="true" tabindex="-1"></a>BlueData <span class="ot">&lt;-</span> <span class="fu">procspec</span>(BlueData, <span class="at">fixneg =</span> <span class="st">&quot;zero&quot;</span>)</span>
+<span id="section-cb2-27"><a href="#section-cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-28"><a href="#section-cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Data for training phase (choices 1-60) </span></span>
+<span id="section-cb2-29"><a href="#section-cb2-29" aria-hidden="true" tabindex="-1"></a>B_CHOICE <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Data/5.BeeChoices_TrainingPhase.csv&quot;</span>)  </span>
+<span id="section-cb2-30"><a href="#section-cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-31"><a href="#section-cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Data for unrewarded tests </span></span>
+<span id="section-cb2-32"><a href="#section-cb2-32" aria-hidden="true" tabindex="-1"></a>B_TEST <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Data/6.BeeChoices_TestingPhase.csv&quot;</span>)  </span>
+<span id="section-cb2-33"><a href="#section-cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb2-34"><a href="#section-cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Iridescence Point Illumination</span></span>
+<span id="section-cb2-35"><a href="#section-cb2-35" aria-hidden="true" tabindex="-1"></a>IriPoint <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Data/7.IridescentDiscPointIllumination.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="section-data-analysis" class="section level1">
+<h1>Data analysis</h1>
+<div id="section-iridescence-stimulus" class="section level2">
+<h2>Iridescence Stimulus</h2>
+<div id="section-spectral-shift-quantification" class="section level3">
+<h3>Spectral shift quantification</h3>
+<p>Spectral characterization of the iridescent stimulus</p>
+<div class="sourceCode" id="section-cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb3-1"><a href="#section-cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blue shift calculations</span></span>
+<span id="section-cb3-2"><a href="#section-cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb3-3"><a href="#section-cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## First create a data frame with the spectral location for each spectrum</span></span>
+<span id="section-cb3-4"><a href="#section-cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb3-5"><a href="#section-cb3-5" aria-hidden="true" tabindex="-1"></a>ps <span class="ot">&lt;-</span> <span class="fu">peakshape</span>(IriData) <span class="co"># obtain spectral descriptors</span></span></code></pre></div>
+<p>This step is convenient to save time and computational power while re-using the parameters extracted from the function <code>peakshape</code> without generating the plots each time.</p>
+<div class="sourceCode" id="section-cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb4-1"><a href="#section-cb4-1" aria-hidden="true" tabindex="-1"></a>SpecLoc <span class="ot">&lt;-</span> ps<span class="sc">$</span>H1 <span class="sc">-</span> ps<span class="sc">$</span>HWHM.l <span class="co"># obtain spectral location</span></span>
+<span id="section-cb4-2"><a href="#section-cb4-2" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">names</span>(IriData) <span class="co"># Names of each column</span></span>
+<span id="section-cb4-3"><a href="#section-cb4-3" aria-hidden="true" tabindex="-1"></a>Position_light <span class="ot">&lt;-</span> <span class="fu">substring</span>(labels  [ <span class="dv">2</span><span class="sc">:</span> <span class="fu">length</span>(labels)], <span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># Light source</span></span>
+<span id="section-cb4-4"><a href="#section-cb4-4" aria-hidden="true" tabindex="-1"></a>Angle_collector <span class="ot">&lt;-</span> <span class="fu">substring</span>(labels [ <span class="dv">2</span><span class="sc">:</span> <span class="fu">length</span>(labels)], <span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># Collector</span></span>
+<span id="section-cb4-5"><a href="#section-cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb4-6"><a href="#section-cb4-6" aria-hidden="true" tabindex="-1"></a>Spectral <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="section-cb4-7"><a href="#section-cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Position&quot;</span> <span class="ot">=</span> Position_light,</span>
+<span id="section-cb4-8"><a href="#section-cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Angle&quot;</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(Angle_collector),</span>
+<span id="section-cb4-9"><a href="#section-cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SpecLoc&quot;</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(SpecLoc)</span>
+<span id="section-cb4-10"><a href="#section-cb4-10" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Data frame with the spectral location </span></span>
+<span id="section-cb4-11"><a href="#section-cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb4-12"><a href="#section-cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Note: In this paper we used a linear model to quantify iridescence</span></span>
+<span id="section-cb4-13"><a href="#section-cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#The slope of the linear model is the shifting of the spectra</span></span>
+<span id="section-cb4-14"><a href="#section-cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb4-15"><a href="#section-cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a loop to find the slope for each position of the light source</span></span>
+<span id="section-cb4-16"><a href="#section-cb4-16" aria-hidden="true" tabindex="-1"></a>Iridescence <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">15</span>) <span class="co"># initial empty vector</span></span>
+<span id="section-cb4-17"><a href="#section-cb4-17" aria-hidden="true" tabindex="-1"></a>Position1to15 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;P01&quot;</span>,<span class="st">&quot;P02&quot;</span>,<span class="st">&quot;P03&quot;</span>,<span class="st">&quot;P04&quot;</span>,<span class="st">&quot;P05&quot;</span>, <span class="st">&quot;P06&quot;</span>,</span>
+<span id="section-cb4-18"><a href="#section-cb4-18" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;P07&quot;</span>,<span class="st">&quot;P08&quot;</span>,<span class="st">&quot;P09&quot;</span>,<span class="st">&quot;P10&quot;</span>,<span class="st">&quot;P11&quot;</span>, <span class="st">&quot;P12&quot;</span>, </span>
+<span id="section-cb4-19"><a href="#section-cb4-19" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;P13&quot;</span>,<span class="st">&quot;P14&quot;</span>,<span class="st">&quot;P15&quot;</span>) <span class="co"># positions of the light source</span></span>
+<span id="section-cb4-20"><a href="#section-cb4-20" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Accumulator to allow consecutive iterations in the loop</span></span>
+<span id="section-cb4-21"><a href="#section-cb4-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> Position1to15) {</span>
+<span id="section-cb4-22"><a href="#section-cb4-22" aria-hidden="true" tabindex="-1"></a>  mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Spectral<span class="sc">$</span>SpecLoc [Spectral<span class="sc">$</span>Position <span class="sc">==</span> i]<span class="sc">~</span></span>
+<span id="section-cb4-23"><a href="#section-cb4-23" aria-hidden="true" tabindex="-1"></a>             Spectral<span class="sc">$</span>Angle  [Spectral<span class="sc">$</span>Position <span class="sc">==</span> i]) <span class="co"># model each position</span></span>
+<span id="section-cb4-24"><a href="#section-cb4-24" aria-hidden="true" tabindex="-1"></a>  Iridescence [j] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>coefficients[<span class="dv">2</span>]), <span class="dv">3</span>) <span class="co"># slope</span></span>
+<span id="section-cb4-25"><a href="#section-cb4-25" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span> <span class="co"># repeat for each position</span></span>
+<span id="section-cb4-26"><a href="#section-cb4-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="section-cb4-27"><a href="#section-cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb4-28"><a href="#section-cb4-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a dataframe with the absolute magnitude of the slope (blue shift)</span></span>
+<span id="section-cb4-29"><a href="#section-cb4-29" aria-hidden="true" tabindex="-1"></a>BlueShiftData<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="section-cb4-30"><a href="#section-cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Position&quot;</span> <span class="ot">=</span> Position1to15,</span>
+<span id="section-cb4-31"><a href="#section-cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;BlueShift&quot;</span> <span class="ot">=</span> Iridescence <span class="sc">*</span> (<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="section-cb4-32"><a href="#section-cb4-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="section-cb4-33"><a href="#section-cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb4-34"><a href="#section-cb4-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Obtain statistics</span></span>
+<span id="section-cb4-35"><a href="#section-cb4-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(BlueShiftData<span class="sc">$</span>BlueShift) </span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.810   9.932  12.342  11.248  13.715  15.239</code></pre>
+<div class="sourceCode" id="section-cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb6-1"><a href="#section-cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(BlueShiftData<span class="sc">$</span>BlueShift)</span></code></pre></div>
+<pre><code>## [1] 3.950022</code></pre>
+</div>
+<div id="section-visualization-fig.3a" class="section level3">
+<h3>Visualization (Fig.3A)</h3>
+<p>Visualization of the blue shift in the iridescent stimulus</p>
+<div class="sourceCode" id="section-cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb8-1"><a href="#section-cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example with the light in position 9. </span></span>
+<span id="section-cb8-2"><a href="#section-cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb8-3"><a href="#section-cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb8-4"><a href="#section-cb8-4" aria-hidden="true" tabindex="-1"></a>ForP09 <span class="ot">&lt;-</span> </span>
+<span id="section-cb8-5"><a href="#section-cb8-5" aria-hidden="true" tabindex="-1"></a>  IriData <span class="sc">%&gt;%</span> </span>
+<span id="section-cb8-6"><a href="#section-cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (wl, <span class="fu">contains</span> (<span class="st">&quot;P09&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb8-7"><a href="#section-cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span> (Pos, Reflectance, <span class="sc">-</span> wl) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb8-8"><a href="#section-cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">Angle =</span> <span class="fu">substr</span>(Pos,<span class="dv">5</span>,<span class="dv">6</span>)) </span>
+<span id="section-cb8-9"><a href="#section-cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb8-10"><a href="#section-cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb8-11"><a href="#section-cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span> (ForP09, <span class="fu">aes</span>(wl, Reflectance)) <span class="sc">+</span></span>
+<span id="section-cb8-12"><a href="#section-cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>Angle), <span class="at">size=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="section-cb8-13"><a href="#section-cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="section-cb8-14"><a href="#section-cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="section-cb8-15"><a href="#section-cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="section-cb8-16"><a href="#section-cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title=</span><span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="section-cb8-17"><a href="#section-cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">99</span>, .<span class="dv">99</span>),</span>
+<span id="section-cb8-18"><a href="#section-cb8-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>))<span class="sc">+</span></span>
+<span id="section-cb8-19"><a href="#section-cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Reflectance (%)&quot;</span>)<span class="sc">+</span></span>
+<span id="section-cb8-20"><a href="#section-cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Wavelength (nm)&quot;</span>)<span class="sc">+</span></span>
+<span id="section-cb8-21"><a href="#section-cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_grey</span>(<span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="fl">0.75</span>) <span class="sc">+</span> </span>
+<span id="section-cb8-22"><a href="#section-cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">7</span>))<span class="sc">+</span></span>
+<span id="section-cb8-23"><a href="#section-cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">7</span>))<span class="sc">+</span></span>
+<span id="section-cb8-24"><a href="#section-cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key=</span><span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="section-cb8-25"><a href="#section-cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">&#39;cm&#39;</span>),</span>
+<span id="section-cb8-26"><a href="#section-cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width=</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">&#39;cm&#39;</span>))</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="section-bee-colour-vision-models" class="section level2">
+<h2>Bee colour vision models</h2>
+<div id="section-temporal-component-fig.3c" class="section level3">
+<h3>Temporal Component (Fig.3C)</h3>
+<div class="sourceCode" id="section-cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb9-1"><a href="#section-cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iridescent stimulus</span></span>
+<span id="section-cb9-2"><a href="#section-cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example with the light in position 9. </span></span>
+<span id="section-cb9-3"><a href="#section-cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb9-4"><a href="#section-cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the visual models:</span></span>
+<span id="section-cb9-5"><a href="#section-cb9-5" aria-hidden="true" tabindex="-1"></a>bee_modelc <span class="ot">&lt;-</span> <span class="fu">vismodel</span>((IriData [,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">40</span><span class="sc">:</span><span class="dv">45</span>)]), <span class="co"># consider only position 9</span></span>
+<span id="section-cb9-6"><a href="#section-cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb9-7"><a href="#section-cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb9-8"><a href="#section-cb9-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="co"># grey background</span></span>
+<span id="section-cb9-9"><a href="#section-cb9-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">vonkries =</span> T, <span class="at">relative =</span> F) </span>
+<span id="section-cb9-10"><a href="#section-cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb9-11"><a href="#section-cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize in hex space:</span></span>
+<span id="section-cb9-12"><a href="#section-cb9-12" aria-hidden="true" tabindex="-1"></a>hex_spacec <span class="ot">=</span> <span class="fu">colspace</span>(bee_modelc, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>) <span class="co"># create the hex space</span></span>
+<span id="section-cb9-13"><a href="#section-cb9-13" aria-hidden="true" tabindex="-1"></a>colours1 <span class="ot">&lt;-</span> <span class="fu">spec2rgb</span>(IriData [,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">40</span><span class="sc">:</span><span class="dv">45</span>)]) <span class="co"># Human RGB values</span></span>
+<span id="section-cb9-14"><a href="#section-cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hex_spacec,<span class="at">col =</span> colours1, <span class="at">cex =</span> <span class="fl">1.5</span>) <span class="co"># plot the hex space</span></span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="section-cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb10-1"><a href="#section-cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We used human RGB values only for visualization purposes</span></span>
+<span id="section-cb10-2"><a href="#section-cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># But these values are not related to the bee perception of colour</span></span></code></pre></div>
+</div>
+<div id="section-spatial-component-fig.3c" class="section level3">
+<h3>Spatial Component (Fig.3C)</h3>
+<div class="sourceCode" id="section-cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb11-1"><a href="#section-cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colourful distractors</span></span>
+<span id="section-cb11-2"><a href="#section-cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example modelling distractors 9 and 10</span></span>
+<span id="section-cb11-3"><a href="#section-cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb11-4"><a href="#section-cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the visual models:</span></span>
+<span id="section-cb11-5"><a href="#section-cb11-5" aria-hidden="true" tabindex="-1"></a>bee_ddc <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">28</span><span class="sc">:</span><span class="dv">35</span>)], <span class="co"># only distractors 9 and 10</span></span>
+<span id="section-cb11-6"><a href="#section-cb11-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic=</span><span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb11-7"><a href="#section-cb11-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb11-8"><a href="#section-cb11-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10,  <span class="co"># grey background</span></span>
+<span id="section-cb11-9"><a href="#section-cb11-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb11-10"><a href="#section-cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb11-11"><a href="#section-cb11-11" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize in hex space:</span></span>
+<span id="section-cb11-12"><a href="#section-cb11-12" aria-hidden="true" tabindex="-1"></a>hsddc <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_ddc, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>) <span class="co"># create the hex space</span></span>
+<span id="section-cb11-13"><a href="#section-cb11-13" aria-hidden="true" tabindex="-1"></a>colours2 <span class="ot">&lt;-</span> <span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">28</span><span class="sc">:</span><span class="dv">35</span>)]) <span class="co"># Human RGB values</span></span>
+<span id="section-cb11-14"><a href="#section-cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsddc,<span class="at">col=</span> colours2, <span class="at">cex =</span> <span class="fl">1.5</span>) <span class="co"># plot the hex space</span></span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="section-cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb12-1"><a href="#section-cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We used human RGB values only for visualization purposes</span></span>
+<span id="section-cb12-2"><a href="#section-cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each colour represents a patch in the colorful distractor</span></span>
+<span id="section-cb12-3"><a href="#section-cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># But these values are not related to the bee perception of colour</span></span></code></pre></div>
+</div>
+</div>
+<div id="section-bee-spatial-acuity-fig.-4-fig.-s8" class="section level2">
+<h2>Bee spatial acuity (Fig. 4 &amp; Fig. S8)</h2>
+<p>Spatial acuity was simulated using the toBeeView program using the following code structure:</p>
+<div class="sourceCode" id="section-cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb13-1"><a href="#section-cb13-1" aria-hidden="true" tabindex="-1"></a>toBeeView <span class="sc">-</span>i Filename.png <span class="sc">-</span>d <span class="dv">50</span> <span class="sc">-</span>h <span class="dv">50</span>  <span class="sc">-</span>r <span class="fl">1.9</span>  <span class="sc">-</span>p <span class="fl">1.8</span></span></code></pre></div>
+<p>Here, the simulation is set to a viewing distance (d) of 50 mm and a height (h) of 50 mm. To generate simulations at 10 cm and 20 cm, we changed ‘d’ to 100 and 200.</p>
+</div>
+<div id="section-bee-behaviour" class="section level2">
+<h2>Bee Behaviour</h2>
+<div id="section-generalized-linear-models" class="section level3">
+<h3>Generalized linear models</h3>
+<div id="section-training-phase" class="section level4">
+<h4>Training phase</h4>
+<div class="sourceCode" id="section-cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb14-1"><a href="#section-cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generalized linear model for the training phase</span></span>
+<span id="section-cb14-2"><a href="#section-cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb14-3"><a href="#section-cb14-3" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(CHOICE<span class="sc">~</span>CHOICENUM, <span class="at">family =</span> binomial, <span class="at">data =</span> B_CHOICE)</span>
+<span id="section-cb14-4"><a href="#section-cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = CHOICE ~ CHOICENUM, family = binomial, data = B_CHOICE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6944  -1.4062   0.8012   0.8970   1.0097  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) 0.395297   0.173497   2.278   0.0227 *
+## CHOICENUM   0.012807   0.005134   2.495   0.0126 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 747.65  on 599  degrees of freedom
+## Residual deviance: 741.36  on 598  degrees of freedom
+## AIC: 745.36
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="section-cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb16-1"><a href="#section-cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate values for Fig. 5: Predicted mean proportion of correct choices</span></span>
+<span id="section-cb16-2"><a href="#section-cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb16-3"><a href="#section-cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe from 0 to 60</span></span>
+<span id="section-cb16-4"><a href="#section-cb16-4" aria-hidden="true" tabindex="-1"></a>choicenumlm  <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (<span class="at">CHOICENUM =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">60</span>, <span class="at">length.out =</span> <span class="dv">100</span>)) </span>
+<span id="section-cb16-5"><a href="#section-cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix of choice number</span></span>
+<span id="section-cb16-6"><a href="#section-cb16-6" aria-hidden="true" tabindex="-1"></a>Xgc1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>CHOICENUM, <span class="at">data =</span> B_CHOICE) </span>
+<span id="section-cb16-7"><a href="#section-cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Create vector of model coefficients</span></span>
+<span id="section-cb16-8"><a href="#section-cb16-8" aria-hidden="true" tabindex="-1"></a>coeff <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.39529652</span>, <span class="fl">0.01280739</span>) </span>
+<span id="section-cb16-9"><a href="#section-cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate predicted mean proportion of correct choices</span></span>
+<span id="section-cb16-10"><a href="#section-cb16-10" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> Xgc1 <span class="sc">%*%</span> coeff </span>
+<span id="section-cb16-11"><a href="#section-cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate standard errors</span></span>
+<span id="section-cb16-12"><a href="#section-cb16-12" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(Xgc1 <span class="sc">%*%</span> <span class="fu">vcov</span>(lm1) <span class="sc">%*%</span> <span class="fu">t</span>(Xgc1))) </span>
+<span id="section-cb16-13"><a href="#section-cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#creates datafile with data from irid.dat (after reversing the link function)</span></span>
+<span id="section-cb16-14"><a href="#section-cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="fu">cbind</span>(choicenumlm<span class="sc">$</span>CHOICENUM, eta, SE), <span class="st">&quot;iridreg.csv&quot;</span>) </span></code></pre></div>
+</div>
+<div id="section-unrewarded-tests" class="section level4">
+<h4>Unrewarded tests</h4>
+<p>Setting up subsets:</p>
+<div class="sourceCode" id="section-cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb17-1"><a href="#section-cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generalized linear mixed model for unrewarded test conditions</span></span>
+<span id="section-cb17-2"><a href="#section-cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb17-3"><a href="#section-cb17-3" aria-hidden="true" tabindex="-1"></a>B_TEST<span class="sc">$</span>BEEID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(B_TEST<span class="sc">$</span>BEEID) <span class="co">#Treat Bee ID as factor</span></span>
+<span id="section-cb17-4"><a href="#section-cb17-4" aria-hidden="true" tabindex="-1"></a>B_LEARN <span class="ot">&lt;-</span> <span class="fu">subset</span>(B_TEST, TEST <span class="sc">==</span> <span class="st">&quot;LEARNING&quot;</span>) <span class="co"># Subset Learning test</span></span>
+<span id="section-cb17-5"><a href="#section-cb17-5" aria-hidden="true" tabindex="-1"></a>B_TRANS <span class="ot">&lt;-</span> <span class="fu">subset</span>(B_TEST, TEST <span class="sc">==</span> <span class="st">&quot;TRANSFER&quot;</span>) <span class="co"># Subset Transfer test</span></span>
+<span id="section-cb17-6"><a href="#section-cb17-6" aria-hidden="true" tabindex="-1"></a>B_CONT <span class="ot">&lt;-</span> <span class="fu">subset</span>(B_TEST, TEST <span class="sc">==</span> <span class="st">&quot;CONTROL&quot;</span>) <span class="co"># Subset Control test</span></span>
+<span id="section-cb17-7"><a href="#section-cb17-7" aria-hidden="true" tabindex="-1"></a>B_CONF <span class="ot">&lt;-</span> <span class="fu">subset</span>(B_TEST, TEST <span class="sc">==</span> <span class="st">&quot;BLUE&quot;</span>) <span class="co"># Subset  Conflict test </span></span></code></pre></div>
+<div id="section-learning-test" class="section level5">
+<h5>Learning Test</h5>
+<div class="sourceCode" id="section-cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb18-1"><a href="#section-cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learning test model</span></span>
+<span id="section-cb18-2"><a href="#section-cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb18-3"><a href="#section-cb18-3" aria-hidden="true" tabindex="-1"></a>lm_LEARN <span class="ot">&lt;-</span> <span class="fu">glmer</span>(CHOICE<span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>BEEID), <span class="at">family =</span> binomial, <span class="at">data =</span> B_LEARN) </span>
+<span id="section-cb18-4"><a href="#section-cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_LEARN) </span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: CHOICE ~ 1 + (1 | BEEID)
+##    Data: B_LEARN
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    104.1    109.3    -50.0    100.1       98 
+## 
+## Scaled residuals: 
+##    Min     1Q Median     3Q    Max 
+##   -2.0    0.5    0.5    0.5    0.5 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  BEEID  (Intercept) 0        0       
+## Number of obs: 100, groups:  BEEID, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    1.386      0.250   5.545 2.94e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## optimizer (Nelder_Mead) convergence code: 0 (OK)
+## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode" id="section-cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb20-1"><a href="#section-cb20-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">1.386</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>( <span class="fl">1.386</span>)) <span class="co"># Mean proportion of correct choices</span></span></code></pre></div>
+<pre><code>## [1] 0.7999529</code></pre>
+<div class="sourceCode" id="section-cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb22-1"><a href="#section-cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_LEARN) <span class="co"># Calculate confidence intervals</span></span></code></pre></div>
+<pre><code>##                 2.5 %   97.5 %
+## .sig01      0.0000000 1.028480
+## (Intercept) 0.9167736 2.010104</code></pre>
+<div class="sourceCode" id="section-cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb24-1"><a href="#section-cb24-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.9167736</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.9167736</span>)) <span class="co"># Lower bound</span></span></code></pre></div>
+<pre><code>## [1] 0.7143842</code></pre>
+<div class="sourceCode" id="section-cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb26-1"><a href="#section-cb26-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">2.010104</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">2.010104</span>)) <span class="co"># Upper bound</span></span></code></pre></div>
+<pre><code>## [1] 0.8818539</code></pre>
+</div>
+<div id="section-transfer-test" class="section level5">
+<h5>Transfer Test</h5>
+<div class="sourceCode" id="section-cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb28-1"><a href="#section-cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfer test model</span></span>
+<span id="section-cb28-2"><a href="#section-cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb28-3"><a href="#section-cb28-3" aria-hidden="true" tabindex="-1"></a>lm_TRANS <span class="ot">&lt;-</span> <span class="fu">glmer</span>(CHOICE<span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>BEEID), <span class="at">family =</span> binomial, <span class="at">data =</span> B_TRANS) </span>
+<span id="section-cb28-4"><a href="#section-cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_TRANS)  </span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: CHOICE ~ 1 + (1 | BEEID)
+##    Data: B_TRANS
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##     91.9     97.1    -44.0     87.9       98 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.2913  0.4364  0.4364  0.4364  0.4364 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  BEEID  (Intercept) 0        0       
+## Number of obs: 100, groups:  BEEID, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   1.6582     0.2728   6.079 1.21e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## optimizer (Nelder_Mead) convergence code: 0 (OK)
+## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode" id="section-cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb30-1"><a href="#section-cb30-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">1.6582</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>( <span class="fl">1.6582</span>)) <span class="co"># Mean proportion of correct choices</span></span></code></pre></div>
+<pre><code>## [1] 0.8399962</code></pre>
+<div class="sourceCode" id="section-cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb32-1"><a href="#section-cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_TRANS) <span class="co"># Calculate confidence intervals</span></span></code></pre></div>
+<pre><code>##                2.5 %    97.5 %
+## .sig01      0.000000 0.8065494
+## (Intercept) 1.152512 2.2352976</code></pre>
+<div class="sourceCode" id="section-cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb34-1"><a href="#section-cb34-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">1.152512</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.152512</span>)) <span class="co"># Lower bound</span></span></code></pre></div>
+<pre><code>## [1] 0.7599694</code></pre>
+<div class="sourceCode" id="section-cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb36-1"><a href="#section-cb36-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">2.2352976</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">2.2352976</span>)) <span class="co"># Upper bound</span></span></code></pre></div>
+<pre><code>## [1] 0.9033748</code></pre>
+</div>
+<div id="section-control-test" class="section level5">
+<h5>Control Test</h5>
+<div class="sourceCode" id="section-cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb38-1"><a href="#section-cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Control test model</span></span>
+<span id="section-cb38-2"><a href="#section-cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb38-3"><a href="#section-cb38-3" aria-hidden="true" tabindex="-1"></a>lm_CONT <span class="ot">&lt;-</span> <span class="fu">glmer</span>(CHOICE<span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>BEEID), <span class="at">family =</span> binomial, <span class="at">data =</span> B_CONT) </span>
+<span id="section-cb38-4"><a href="#section-cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_CONT)  </span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: CHOICE ~ 1 + (1 | BEEID)
+##    Data: B_CONT
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    122.6    127.8    -59.3    118.6       98 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.6036 -1.6036  0.6236  0.6236  0.6236 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  BEEID  (Intercept) 0        0       
+## Number of obs: 100, groups:  BEEID, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.9445     0.2227   4.241 2.23e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## optimizer (Nelder_Mead) convergence code: 0 (OK)
+## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode" id="section-cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb40-1"><a href="#section-cb40-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.9445</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.9445</span>)) <span class="co"># Mean proportion of correct choices</span></span></code></pre></div>
+<pre><code>## [1] 0.7200077</code></pre>
+<div class="sourceCode" id="section-cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb42-1"><a href="#section-cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_CONT) <span class="co"># Calculate confidence interval</span></span></code></pre></div>
+<pre><code>##                2.5 %    97.5 %
+## .sig01      0.000000 0.8969593
+## (Intercept) 0.514904 1.4611194</code></pre>
+<div class="sourceCode" id="section-cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb44-1"><a href="#section-cb44-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.514904</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.514904</span>)) <span class="co"># Lower bound</span></span></code></pre></div>
+<pre><code>## [1] 0.6259554</code></pre>
+<div class="sourceCode" id="section-cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb46-1"><a href="#section-cb46-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">1.4611194</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.4611194</span>)) <span class="co"># Upper bound</span></span></code></pre></div>
+<pre><code>## [1] 0.8117038</code></pre>
+</div>
+<div id="section-blue-test" class="section level5">
+<h5>Blue Test</h5>
+<div class="sourceCode" id="section-cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb48-1"><a href="#section-cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blue test model</span></span>
+<span id="section-cb48-2"><a href="#section-cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb48-3"><a href="#section-cb48-3" aria-hidden="true" tabindex="-1"></a>lm_CONF <span class="ot">&lt;-</span> <span class="fu">glmer</span>(CHOICE<span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>BEEID), <span class="at">family =</span> binomial, <span class="at">data =</span> B_CONF) </span>
+<span id="section-cb48-4"><a href="#section-cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_CONF)  </span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: CHOICE ~ 1 + (1 | BEEID)
+##    Data: B_CONF
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    130.8    136.0    -63.4    126.8       98 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.4249 -1.4249  0.7018  0.7018  0.7018 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  BEEID  (Intercept) 0        0       
+## Number of obs: 100, groups:  BEEID, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.7082     0.2127    3.33 0.000869 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## optimizer (Nelder_Mead) convergence code: 0 (OK)
+## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode" id="section-cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb50-1"><a href="#section-cb50-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.7082</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.7082</span>)) <span class="co"># Mean proportion of correct choices</span></span></code></pre></div>
+<pre><code>## [1] 0.6700033</code></pre>
+<div class="sourceCode" id="section-cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb52-1"><a href="#section-cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_CONF) <span class="co"># Calculate confidence interval</span></span></code></pre></div>
+<pre><code>##                 2.5 %    97.5 %
+## .sig01      0.0000000 0.8692417
+## (Intercept) 0.2871733 1.1953020</code></pre>
+<div class="sourceCode" id="section-cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb54-1"><a href="#section-cb54-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.2871733</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.2871733</span>)) <span class="co"># Lower bound</span></span></code></pre></div>
+<pre><code>## [1] 0.571304</code></pre>
+<div class="sourceCode" id="section-cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb56-1"><a href="#section-cb56-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">1.1953020</span>))<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">1.1953020</span>)) <span class="co"># Upper bound</span></span></code></pre></div>
+<pre><code>## [1] 0.767688</code></pre>
+</div>
+<div id="section-assumption-checking" class="section level5">
+<h5>Assumption checking</h5>
+<div class="sourceCode" id="section-cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb58-1"><a href="#section-cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Requires package DHaRMa </span></span>
+<span id="section-cb58-2"><a href="#section-cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb58-3"><a href="#section-cb58-3" aria-hidden="true" tabindex="-1"></a>simulationOutput_lm1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> lm1, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="section-cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb59-1"><a href="#section-cb59-1" aria-hidden="true" tabindex="-1"></a>simulationOutput_LEARN <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> lm_LEARN, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<div class="sourceCode" id="section-cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb60-1"><a href="#section-cb60-1" aria-hidden="true" tabindex="-1"></a>simulationOutput_TRANS <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> lm_TRANS, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-16-3.png" width="672" /></p>
+<div class="sourceCode" id="section-cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb61-1"><a href="#section-cb61-1" aria-hidden="true" tabindex="-1"></a>simulationOutput_CONT <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> lm_CONT, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-16-4.png" width="672" /></p>
+<div class="sourceCode" id="section-cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb62-1"><a href="#section-cb62-1" aria-hidden="true" tabindex="-1"></a>simulationOutput_CONF <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> lm_CONF, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-16-5.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="section-plot---fig.-5" class="section level3">
+<h3>Plot - Fig. 5</h3>
+<p>Figure 5 was generated using Gnuplot using the ‘Irid.dat’ file and the following code:</p>
+<div class="sourceCode" id="section-cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb63-1"><a href="#section-cb63-1" aria-hidden="true" tabindex="-1"></a>reset</span>
+<span id="section-cb63-2"><a href="#section-cb63-2" aria-hidden="true" tabindex="-1"></a>unset multiplot</span>
+<span id="section-cb63-3"><a href="#section-cb63-3" aria-hidden="true" tabindex="-1"></a>set terminal pdfcairo size 14cm,14cm enhanced </span>
+<span id="section-cb63-4"><a href="#section-cb63-4" aria-hidden="true" tabindex="-1"></a>set terminal pdfcairo font <span class="st">&quot;Helvetica,11&quot;</span></span>
+<span id="section-cb63-5"><a href="#section-cb63-5" aria-hidden="true" tabindex="-1"></a>set output <span class="st">&#39;iridgraph.pdf&#39;</span> <span class="co">#OUTPUT FILE</span></span>
+<span id="section-cb63-6"><a href="#section-cb63-6" aria-hidden="true" tabindex="-1"></a>set style fill transparent solid <span class="fl">0.4</span></span>
+<span id="section-cb63-7"><a href="#section-cb63-7" aria-hidden="true" tabindex="-1"></a>set style line <span class="dv">1</span> pt <span class="dv">7</span> ps <span class="fl">0.15</span> lw <span class="fl">1.5</span> lc rgb <span class="st">&quot;black&quot;</span></span>
+<span id="section-cb63-8"><a href="#section-cb63-8" aria-hidden="true" tabindex="-1"></a>set style line <span class="dv">2</span> lc rgb <span class="st">&quot;magenta&quot;</span> <span class="co">#medium</span></span>
+<span id="section-cb63-9"><a href="#section-cb63-9" aria-hidden="true" tabindex="-1"></a>set style line <span class="dv">3</span> lc rgb <span class="st">&quot;blue&quot;</span> <span class="co">#low</span></span>
+<span id="section-cb63-10"><a href="#section-cb63-10" aria-hidden="true" tabindex="-1"></a>set style line <span class="dv">4</span> lc rgb <span class="st">&quot;red&quot;</span> <span class="co">#high</span></span>
+<span id="section-cb63-11"><a href="#section-cb63-11" aria-hidden="true" tabindex="-1"></a>set key bottom right noautotitle </span>
+<span id="section-cb63-12"><a href="#section-cb63-12" aria-hidden="true" tabindex="-1"></a>set xlabel <span class="st">&quot;Choice number&quot;</span></span>
+<span id="section-cb63-13"><a href="#section-cb63-13" aria-hidden="true" tabindex="-1"></a>set ylabel <span class="st">&quot;Mean proportion of correct choices&quot;</span></span>
+<span id="section-cb63-14"><a href="#section-cb63-14" aria-hidden="true" tabindex="-1"></a>set yrange [<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>]</span>
+<span id="section-cb63-15"><a href="#section-cb63-15" aria-hidden="true" tabindex="-1"></a>set xrange [<span class="dv">0</span><span class="sc">:</span><span class="dv">60</span>]</span>
+<span id="section-cb63-16"><a href="#section-cb63-16" aria-hidden="true" tabindex="-1"></a>set ytics <span class="dv">0</span>,<span class="fl">0.1</span>,<span class="dv">1</span></span>
+<span id="section-cb63-17"><a href="#section-cb63-17" aria-hidden="true" tabindex="-1"></a>plot <span class="st">&#39;irid.dat&#39;</span> i <span class="dv">0</span> u <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span><span class="sc">:</span><span class="dv">4</span> w filledc ls <span class="dv">3</span>,  \</span>
+<span id="section-cb63-18"><a href="#section-cb63-18" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;</span> i <span class="dv">0</span> u <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> w l ls <span class="dv">1</span>, <span class="st">&quot;&quot;</span> i <span class="dv">1</span> u <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> with </span>
+<span id="section-cb63-19"><a href="#section-cb63-19" aria-hidden="true" tabindex="-1"></a>yerrorbars lc <span class="fu">rgb</span>(<span class="st">&quot;black&quot;</span>) ps <span class="fl">0.3</span> linewidth <span class="dv">1</span></span>
+<span id="section-cb63-20"><a href="#section-cb63-20" aria-hidden="true" tabindex="-1"></a>unset output</span>
+<span id="section-cb63-21"><a href="#section-cb63-21" aria-hidden="true" tabindex="-1"></a>set terminal wxt</span>
+<span id="section-cb63-22"><a href="#section-cb63-22" aria-hidden="true" tabindex="-1"></a>replot</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="section-supplementary-materials" class="section level1">
+<h1>Supplementary materials</h1>
+<div id="section-bee-vision" class="section level2">
+<h2>Bee vision</h2>
+<div id="section-models-for-the-iridescent-stimulus" class="section level3">
+<h3>Models for the Iridescent stimulus</h3>
+<p>Supplementary Fig. S4</p>
+<p>Check the interactive plot below to see the results for each position of the light.</p>
+<div class="sourceCode" id="section-cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb64-1"><a href="#section-cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position1 ----</span></span>
+<span id="section-cb64-2"><a href="#section-cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb64-3"><a href="#section-cb64-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb64-4"><a href="#section-cb64-4" aria-hidden="true" tabindex="-1"></a>FigS4_p1Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack  =</span>  </span>
+<span id="section-cb64-5"><a href="#section-cb64-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb65-1"><a href="#section-cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb65-2"><a href="#section-cb65-2" aria-hidden="true" tabindex="-1"></a>pos_1 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)], <span class="at">visual  =</span>  <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb65-3"><a href="#section-cb65-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb65-4"><a href="#section-cb65-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb65-5"><a href="#section-cb65-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb65-6"><a href="#section-cb65-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb65-7"><a href="#section-cb65-7" aria-hidden="true" tabindex="-1"></a>hxpos1 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_1, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb65-8"><a href="#section-cb65-8" aria-hidden="true" tabindex="-1"></a>FigS4_p1Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos1)</span></code></pre></div>
+<div class="sourceCode" id="section-cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb66-1"><a href="#section-cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position2 ----</span></span>
+<span id="section-cb66-2"><a href="#section-cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb66-3"><a href="#section-cb66-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb66-4"><a href="#section-cb66-4" aria-hidden="true" tabindex="-1"></a>FigS4_p2Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">11</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span> </span>
+<span id="section-cb66-5"><a href="#section-cb66-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb67-1"><a href="#section-cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb67-2"><a href="#section-cb67-2" aria-hidden="true" tabindex="-1"></a>pos_2 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span><span class="sc">:</span><span class="dv">11</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>,</span>
+<span id="section-cb67-3"><a href="#section-cb67-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb67-4"><a href="#section-cb67-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb67-5"><a href="#section-cb67-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb67-6"><a href="#section-cb67-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb67-7"><a href="#section-cb67-7" aria-hidden="true" tabindex="-1"></a>hxpos2 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_2, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb67-8"><a href="#section-cb67-8" aria-hidden="true" tabindex="-1"></a>FigS4_p2Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos2)</span></code></pre></div>
+<div class="sourceCode" id="section-cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb68-1"><a href="#section-cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position3 ----</span></span>
+<span id="section-cb68-2"><a href="#section-cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb68-3"><a href="#section-cb68-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb68-4"><a href="#section-cb68-4" aria-hidden="true" tabindex="-1"></a>FigS4_p3Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span> </span>
+<span id="section-cb68-5"><a href="#section-cb68-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb69-1"><a href="#section-cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb69-2"><a href="#section-cb69-2" aria-hidden="true" tabindex="-1"></a>pos_3 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>)], </span>
+<span id="section-cb69-3"><a href="#section-cb69-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual  =</span>  <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb69-4"><a href="#section-cb69-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb69-5"><a href="#section-cb69-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb69-6"><a href="#section-cb69-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb69-7"><a href="#section-cb69-7" aria-hidden="true" tabindex="-1"></a>hxpos3 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_3, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb69-8"><a href="#section-cb69-8" aria-hidden="true" tabindex="-1"></a>FigS4_p3Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos3)</span></code></pre></div>
+<div class="sourceCode" id="section-cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb70-1"><a href="#section-cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position4 ----</span></span>
+<span id="section-cb70-2"><a href="#section-cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb70-3"><a href="#section-cb70-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb70-4"><a href="#section-cb70-4" aria-hidden="true" tabindex="-1"></a>FigS4_p4Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">17</span><span class="sc">:</span><span class="dv">21</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span> </span>
+<span id="section-cb70-5"><a href="#section-cb70-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb71-1"><a href="#section-cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb71-2"><a href="#section-cb71-2" aria-hidden="true" tabindex="-1"></a>pos_4 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">17</span><span class="sc">:</span><span class="dv">21</span>)], </span>
+<span id="section-cb71-3"><a href="#section-cb71-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb71-4"><a href="#section-cb71-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb71-5"><a href="#section-cb71-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb71-6"><a href="#section-cb71-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb71-7"><a href="#section-cb71-7" aria-hidden="true" tabindex="-1"></a>hxpos4 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_4, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb71-8"><a href="#section-cb71-8" aria-hidden="true" tabindex="-1"></a>FigS4_p4Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos4)</span></code></pre></div>
+<div class="sourceCode" id="section-cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb72-1"><a href="#section-cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position5 ----</span></span>
+<span id="section-cb72-2"><a href="#section-cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb72-3"><a href="#section-cb72-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb72-4"><a href="#section-cb72-4" aria-hidden="true" tabindex="-1"></a>FigS4_p5Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">22</span><span class="sc">:</span><span class="dv">24</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb72-5"><a href="#section-cb72-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>,<span class="st">&quot;5&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb73-1"><a href="#section-cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb73-2"><a href="#section-cb73-2" aria-hidden="true" tabindex="-1"></a>pos_5 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">22</span><span class="sc">:</span><span class="dv">24</span>)], </span>
+<span id="section-cb73-3"><a href="#section-cb73-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb73-4"><a href="#section-cb73-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb73-5"><a href="#section-cb73-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb73-6"><a href="#section-cb73-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb73-7"><a href="#section-cb73-7" aria-hidden="true" tabindex="-1"></a>hxpos5 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_5, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb73-8"><a href="#section-cb73-8" aria-hidden="true" tabindex="-1"></a>FigS4_p5Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos5)</span></code></pre></div>
+<div class="sourceCode" id="section-cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb74-1"><a href="#section-cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position6 ----</span></span>
+<span id="section-cb74-2"><a href="#section-cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb74-3"><a href="#section-cb74-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb74-4"><a href="#section-cb74-4" aria-hidden="true" tabindex="-1"></a>FigS4_p6Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">25</span><span class="sc">:</span><span class="dv">29</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack  =</span>  </span>
+<span id="section-cb74-5"><a href="#section-cb74-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb75-1"><a href="#section-cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb75-2"><a href="#section-cb75-2" aria-hidden="true" tabindex="-1"></a>pos_6 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">25</span><span class="sc">:</span><span class="dv">29</span>)], </span>
+<span id="section-cb75-3"><a href="#section-cb75-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb75-4"><a href="#section-cb75-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb75-5"><a href="#section-cb75-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb75-6"><a href="#section-cb75-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb75-7"><a href="#section-cb75-7" aria-hidden="true" tabindex="-1"></a>hxpos6 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_6, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb75-8"><a href="#section-cb75-8" aria-hidden="true" tabindex="-1"></a>FigS4_p6Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos6)</span></code></pre></div>
+<div class="sourceCode" id="section-cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb76-1"><a href="#section-cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position7 ----</span></span>
+<span id="section-cb76-2"><a href="#section-cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb76-3"><a href="#section-cb76-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb76-4"><a href="#section-cb76-4" aria-hidden="true" tabindex="-1"></a>FigS4_p7Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">30</span><span class="sc">:</span><span class="dv">35</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span> </span>
+<span id="section-cb76-5"><a href="#section-cb76-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb77-1"><a href="#section-cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb77-2"><a href="#section-cb77-2" aria-hidden="true" tabindex="-1"></a>pos_7 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">30</span><span class="sc">:</span><span class="dv">35</span>)], </span>
+<span id="section-cb77-3"><a href="#section-cb77-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb77-4"><a href="#section-cb77-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb77-5"><a href="#section-cb77-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb77-6"><a href="#section-cb77-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb77-7"><a href="#section-cb77-7" aria-hidden="true" tabindex="-1"></a>hxpos7 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_7, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb77-8"><a href="#section-cb77-8" aria-hidden="true" tabindex="-1"></a>FigS4_p7Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos7)</span></code></pre></div>
+<div class="sourceCode" id="section-cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb78-1"><a href="#section-cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position8 ----</span></span>
+<span id="section-cb78-2"><a href="#section-cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb78-3"><a href="#section-cb78-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb78-4"><a href="#section-cb78-4" aria-hidden="true" tabindex="-1"></a>FigS4_p8Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">36</span><span class="sc">:</span><span class="dv">39</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb78-5"><a href="#section-cb78-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>,<span class="st">&quot;5&quot;</span>, <span class="st">&quot;x&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb79-1"><a href="#section-cb79-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb79-2"><a href="#section-cb79-2" aria-hidden="true" tabindex="-1"></a>pos_8 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">36</span><span class="sc">:</span><span class="dv">39</span>)], </span>
+<span id="section-cb79-3"><a href="#section-cb79-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual  =</span>  <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb79-4"><a href="#section-cb79-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb79-5"><a href="#section-cb79-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb79-6"><a href="#section-cb79-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb79-7"><a href="#section-cb79-7" aria-hidden="true" tabindex="-1"></a>hxpos8 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_8, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb79-8"><a href="#section-cb79-8" aria-hidden="true" tabindex="-1"></a>FigS4_p8Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos8)</span></code></pre></div>
+<div class="sourceCode" id="section-cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb80-1"><a href="#section-cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position9 ----</span></span>
+<span id="section-cb80-2"><a href="#section-cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb80-3"><a href="#section-cb80-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb80-4"><a href="#section-cb80-4" aria-hidden="true" tabindex="-1"></a>FigS4_p9Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">40</span><span class="sc">:</span><span class="dv">45</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb80-5"><a href="#section-cb80-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb81-1"><a href="#section-cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb81-2"><a href="#section-cb81-2" aria-hidden="true" tabindex="-1"></a>pos_9 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">40</span><span class="sc">:</span><span class="dv">45</span>)], </span>
+<span id="section-cb81-3"><a href="#section-cb81-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb81-4"><a href="#section-cb81-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb81-5"><a href="#section-cb81-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb81-6"><a href="#section-cb81-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb81-7"><a href="#section-cb81-7" aria-hidden="true" tabindex="-1"></a>hxpos9 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_9, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb81-8"><a href="#section-cb81-8" aria-hidden="true" tabindex="-1"></a>FigS4_p9Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos9)</span></code></pre></div>
+<div class="sourceCode" id="section-cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb82-1"><a href="#section-cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position10 ----</span></span>
+<span id="section-cb82-2"><a href="#section-cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb82-3"><a href="#section-cb82-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb82-4"><a href="#section-cb82-4" aria-hidden="true" tabindex="-1"></a>FigS4_p10Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">46</span><span class="sc">:</span><span class="dv">49</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb82-5"><a href="#section-cb82-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;25&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;20&quot;</span>,<span class="st">&quot;15&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb83-1"><a href="#section-cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb83-2"><a href="#section-cb83-2" aria-hidden="true" tabindex="-1"></a>pos_10 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">46</span><span class="sc">:</span><span class="dv">49</span>)], </span>
+<span id="section-cb83-3"><a href="#section-cb83-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb83-4"><a href="#section-cb83-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb83-5"><a href="#section-cb83-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb83-6"><a href="#section-cb83-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb83-7"><a href="#section-cb83-7" aria-hidden="true" tabindex="-1"></a>hxpos10 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_10, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb83-8"><a href="#section-cb83-8" aria-hidden="true" tabindex="-1"></a>FigS4_p10Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos10)</span></code></pre></div>
+<div class="sourceCode" id="section-cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb84-1"><a href="#section-cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position11 ----</span></span>
+<span id="section-cb84-2"><a href="#section-cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb84-3"><a href="#section-cb84-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb84-4"><a href="#section-cb84-4" aria-hidden="true" tabindex="-1"></a>FigS4_p11Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">52</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb84-5"><a href="#section-cb84-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb85-1"><a href="#section-cb85-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb85-2"><a href="#section-cb85-2" aria-hidden="true" tabindex="-1"></a>pos_11 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">52</span>)], </span>
+<span id="section-cb85-3"><a href="#section-cb85-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb85-4"><a href="#section-cb85-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb85-5"><a href="#section-cb85-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb85-6"><a href="#section-cb85-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb85-7"><a href="#section-cb85-7" aria-hidden="true" tabindex="-1"></a>hxpos11 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_11, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb85-8"><a href="#section-cb85-8" aria-hidden="true" tabindex="-1"></a>FigS4_p11Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos11)</span></code></pre></div>
+<div class="sourceCode" id="section-cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb86-1"><a href="#section-cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position12 ----</span></span>
+<span id="section-cb86-2"><a href="#section-cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb86-3"><a href="#section-cb86-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb86-4"><a href="#section-cb86-4" aria-hidden="true" tabindex="-1"></a>FigS4_p12Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">53</span><span class="sc">:</span><span class="dv">56</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb86-5"><a href="#section-cb86-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb87-1"><a href="#section-cb87-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb87-2"><a href="#section-cb87-2" aria-hidden="true" tabindex="-1"></a>pos_12 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">53</span><span class="sc">:</span><span class="dv">56</span>)],</span>
+<span id="section-cb87-3"><a href="#section-cb87-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual  =</span>  <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb87-4"><a href="#section-cb87-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb87-5"><a href="#section-cb87-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb87-6"><a href="#section-cb87-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb87-7"><a href="#section-cb87-7" aria-hidden="true" tabindex="-1"></a>hxpos12 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_12, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb87-8"><a href="#section-cb87-8" aria-hidden="true" tabindex="-1"></a>FigS4_p12Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos12)</span></code></pre></div>
+<div class="sourceCode" id="section-cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb88-1"><a href="#section-cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position13 ----</span></span>
+<span id="section-cb88-2"><a href="#section-cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb88-3"><a href="#section-cb88-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb88-4"><a href="#section-cb88-4" aria-hidden="true" tabindex="-1"></a>FigS4_p13Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">57</span><span class="sc">:</span><span class="dv">61</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb88-5"><a href="#section-cb88-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;12&quot;</span>,<span class="st">&quot;10&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb89-1"><a href="#section-cb89-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb89-2"><a href="#section-cb89-2" aria-hidden="true" tabindex="-1"></a>pos_13 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">57</span><span class="sc">:</span><span class="dv">61</span>)], </span>
+<span id="section-cb89-3"><a href="#section-cb89-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb89-4"><a href="#section-cb89-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb89-5"><a href="#section-cb89-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb89-6"><a href="#section-cb89-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb89-7"><a href="#section-cb89-7" aria-hidden="true" tabindex="-1"></a>hxpos13 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_13, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb89-8"><a href="#section-cb89-8" aria-hidden="true" tabindex="-1"></a>FigS4_p13Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos13)</span></code></pre></div>
+<div class="sourceCode" id="section-cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb90-1"><a href="#section-cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position14 -----</span></span>
+<span id="section-cb90-2"><a href="#section-cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb90-3"><a href="#section-cb90-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb90-4"><a href="#section-cb90-4" aria-hidden="true" tabindex="-1"></a>FigS4_p14Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">62</span><span class="sc">:</span><span class="dv">63</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span> </span>
+<span id="section-cb90-5"><a href="#section-cb90-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;20&quot;</span>,<span class="st">&quot;17&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb91-1"><a href="#section-cb91-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb91-2"><a href="#section-cb91-2" aria-hidden="true" tabindex="-1"></a>pos_14 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">62</span><span class="sc">:</span><span class="dv">63</span>)], </span>
+<span id="section-cb91-3"><a href="#section-cb91-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="section-cb91-4"><a href="#section-cb91-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>,</span>
+<span id="section-cb91-5"><a href="#section-cb91-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb91-6"><a href="#section-cb91-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb91-7"><a href="#section-cb91-7" aria-hidden="true" tabindex="-1"></a>hxpos14 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_14, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb91-8"><a href="#section-cb91-8" aria-hidden="true" tabindex="-1"></a>FigS4_p14Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos14)</span></code></pre></div>
+<div class="sourceCode" id="section-cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb92-1"><a href="#section-cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- position 15 ----</span></span>
+<span id="section-cb92-2"><a href="#section-cb92-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb92-3"><a href="#section-cb92-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Visualize raw spectra</span></span>
+<span id="section-cb92-4"><a href="#section-cb92-4" aria-hidden="true" tabindex="-1"></a>FigS4_p15Raw<span class="ot">&lt;-</span><span class="fu">plot</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">64</span><span class="sc">:</span><span class="dv">68</span>)],<span class="at">type =</span> <span class="st">&quot;s&quot;</span>,<span class="at">labels.stack =</span></span>
+<span id="section-cb92-5"><a href="#section-cb92-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;25&quot;</span>,<span class="st">&quot;22&quot;</span>,<span class="st">&quot;15&quot;</span>,<span class="st">&quot;10&quot;</span>,<span class="st">&quot;7&quot;</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb93-1"><a href="#section-cb93-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb93-2"><a href="#section-cb93-2" aria-hidden="true" tabindex="-1"></a>pos_15 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">64</span><span class="sc">:</span><span class="dv">68</span>)], </span>
+<span id="section-cb93-3"><a href="#section-cb93-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb93-4"><a href="#section-cb93-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb93-5"><a href="#section-cb93-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb93-6"><a href="#section-cb93-6" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb93-7"><a href="#section-cb93-7" aria-hidden="true" tabindex="-1"></a>hxpos15 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_15, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb93-8"><a href="#section-cb93-8" aria-hidden="true" tabindex="-1"></a>FigS4_p15Vis<span class="ot">&lt;-</span><span class="fu">plot</span>(hxpos15)</span></code></pre></div>
+<div id="section-raw-spectra" class="section level4">
+<h4>Raw Spectra</h4>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="Posit-label" for="Posit">Choose the position of the light source</label>
+<div>
+<select id="Posit"><option value="P1" selected>P1</option>
+<option value="P2">P2</option>
+<option value="P3">P3</option>
+<option value="P4">P4</option>
+<option value="P5">P5</option>
+<option value="P6">P6</option>
+<option value="P7">P7</option>
+<option value="P8">P8</option>
+<option value="P9">P9</option>
+<option value="P10">P10</option>
+<option value="P11">P11</option>
+<option value="P12">P12</option>
+<option value="P13">P13</option>
+<option value="P14">P14</option>
+<option value="P15">P15</option></select>
+<script type="application/json" data-for="Posit" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<p><div id="out89ea58af93064b22" class="shiny-plot-output" style="width:100%;height:400px;"></div></p>
+</div>
+<div id="section-correspondent-hex-models" class="section level4">
+<h4>Correspondent Hex Models</h4>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="Position-label" for="Position">Choose the position of the light source</label>
+<div>
+<select id="Position"><option value="P1" selected>P1</option>
+<option value="P2">P2</option>
+<option value="P3">P3</option>
+<option value="P4">P4</option>
+<option value="P5">P5</option>
+<option value="P6">P6</option>
+<option value="P7">P7</option>
+<option value="P8">P8</option>
+<option value="P9">P9</option>
+<option value="P10">P10</option>
+<option value="P11">P11</option>
+<option value="P12">P12</option>
+<option value="P13">P13</option>
+<option value="P14">P14</option>
+<option value="P15">P15</option></select>
+<script type="application/json" data-for="Position" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<p><div id="outc03f7b079f171019" class="shiny-plot-output" style="width:100%;height:400px;"></div></p>
+</div>
+<div id="section-as-presented-in-figs4" class="section level4">
+<h4>As presented in FigS4</h4>
+<div class="sourceCode" id="section-cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb94-1"><a href="#section-cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- all positions (as presented in the figure) ----</span></span>
+<span id="section-cb94-2"><a href="#section-cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb94-3"><a href="#section-cb94-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Create visual model</span></span>
+<span id="section-cb94-4"><a href="#section-cb94-4" aria-hidden="true" tabindex="-1"></a>pos_all <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(IriData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">68</span>)], </span>
+<span id="section-cb94-5"><a href="#section-cb94-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="section-cb94-6"><a href="#section-cb94-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, </span>
+<span id="section-cb94-7"><a href="#section-cb94-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, <span class="co"># grey background</span></span>
+<span id="section-cb94-8"><a href="#section-cb94-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb94-9"><a href="#section-cb94-9" aria-hidden="true" tabindex="-1"></a><span class="do">### visualize in hex space</span></span>
+<span id="section-cb94-10"><a href="#section-cb94-10" aria-hidden="true" tabindex="-1"></a>hxposall <span class="ot">&lt;-</span> <span class="fu">colspace</span>(pos_all, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb94-11"><a href="#section-cb94-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hxposall)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+</div>
+<div id="section-models-for-the-distractors" class="section level3">
+<h3>Models for the Distractors</h3>
+<p>Supplementary Fig. S4/S5</p>
+<div class="sourceCode" id="section-cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb95-1"><a href="#section-cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor1 ----</span></span>
+<span id="section-cb95-2"><a href="#section-cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)])</span>
+<span id="section-cb95-3"><a href="#section-cb95-3" aria-hidden="true" tabindex="-1"></a>bee_d1 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb95-4"><a href="#section-cb95-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>,</span>
+<span id="section-cb95-5"><a href="#section-cb95-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb95-6"><a href="#section-cb95-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb95-7"><a href="#section-cb95-7" aria-hidden="true" tabindex="-1"></a>hsd1 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d1, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb95-8"><a href="#section-cb95-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd1,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#A0B616FF&quot;</span>,<span class="st">&quot;#FFD113FF&quot;</span>,<span class="st">&quot;#7CB8C4FF&quot;</span>),<span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb96-1"><a href="#section-cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor2 ----</span></span>
+<span id="section-cb96-2"><a href="#section-cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)])</span>
+<span id="section-cb96-3"><a href="#section-cb96-3" aria-hidden="true" tabindex="-1"></a>bee_d2 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb96-4"><a href="#section-cb96-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb96-5"><a href="#section-cb96-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb96-6"><a href="#section-cb96-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb96-7"><a href="#section-cb96-7" aria-hidden="true" tabindex="-1"></a>hsd2 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d2, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb96-8"><a href="#section-cb96-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd2,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#8CA400FF&quot;</span>, <span class="st">&quot;#5995D7FF&quot;</span>, <span class="st">&quot;#7F97DBFF&quot;</span>, <span class="st">&quot;#A3D1E8FF&quot;</span>),<span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="section-cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb97-1"><a href="#section-cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor3 ----</span></span>
+<span id="section-cb97-2"><a href="#section-cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">9</span><span class="sc">:</span><span class="dv">11</span>)])</span>
+<span id="section-cb97-3"><a href="#section-cb97-3" aria-hidden="true" tabindex="-1"></a>bee_d3 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">9</span><span class="sc">:</span><span class="dv">11</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb97-4"><a href="#section-cb97-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb97-5"><a href="#section-cb97-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb97-6"><a href="#section-cb97-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb97-7"><a href="#section-cb97-7" aria-hidden="true" tabindex="-1"></a>hsd3 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d3, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb97-8"><a href="#section-cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd3,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#C86271FF&quot;</span>, <span class="st">&quot;#FFD600FF&quot;</span>, <span class="st">&quot;#A0AF3AFF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb98-1"><a href="#section-cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor4 ----</span></span>
+<span id="section-cb98-2"><a href="#section-cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)])</span></code></pre></div>
+<pre><code>## Warning in vismodel(rspecdata, visual = &quot;cie10&quot;, illum = &quot;D65&quot;, vonkries =
+## TRUE, : The spectral data contain 16 negative value(s), which may produce
+## unexpected results. Consider using procspec() to correct them.</code></pre>
+<div class="sourceCode" id="section-cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb100-1"><a href="#section-cb100-1" aria-hidden="true" tabindex="-1"></a>bee_d4 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb100-2"><a href="#section-cb100-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb100-3"><a href="#section-cb100-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb100-4"><a href="#section-cb100-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span></code></pre></div>
+<pre><code>## Warning in vismodel(DisData[, c(1, 12:14)], visual = &quot;apis&quot;, achromatic = &quot;l&quot;, :
+## The spectral data contain 16 negative value(s), which may produce unexpected
+## results. Consider using procspec() to correct them.</code></pre>
+<div class="sourceCode" id="section-cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb102-1"><a href="#section-cb102-1" aria-hidden="true" tabindex="-1"></a>hsd4 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d4, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb102-2"><a href="#section-cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd4,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#00A3B2FF&quot;</span>, <span class="st">&quot;#009596FF&quot;</span>, <span class="st">&quot;#6FAC87FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb103-1"><a href="#section-cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor5 ----</span></span>
+<span id="section-cb103-2"><a href="#section-cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>)])</span>
+<span id="section-cb103-3"><a href="#section-cb103-3" aria-hidden="true" tabindex="-1"></a>bee_d5 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb103-4"><a href="#section-cb103-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb103-5"><a href="#section-cb103-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb103-6"><a href="#section-cb103-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb103-7"><a href="#section-cb103-7" aria-hidden="true" tabindex="-1"></a>hsd5 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d5, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb103-8"><a href="#section-cb103-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd5,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#88A539FF&quot;</span> ,<span class="st">&quot;#5BAFB9FF&quot;</span>, <span class="st">&quot;#EEBBD9FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb104-1"><a href="#section-cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor6 ----</span></span>
+<span id="section-cb104-2"><a href="#section-cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">18</span><span class="sc">:</span><span class="dv">20</span>)])</span>
+<span id="section-cb104-3"><a href="#section-cb104-3" aria-hidden="true" tabindex="-1"></a>bee_d6 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">18</span><span class="sc">:</span><span class="dv">20</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb104-4"><a href="#section-cb104-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb104-5"><a href="#section-cb104-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb104-6"><a href="#section-cb104-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb104-7"><a href="#section-cb104-7" aria-hidden="true" tabindex="-1"></a>hsd6 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d6, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb104-8"><a href="#section-cb104-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd6,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#FDD184FF&quot;</span>, <span class="st">&quot;#C8C8A1FF&quot;</span>, <span class="st">&quot;#D59D9AFF&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="section-cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb105-1"><a href="#section-cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor7 ----</span></span>
+<span id="section-cb105-2"><a href="#section-cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">21</span><span class="sc">:</span><span class="dv">23</span>)])</span></code></pre></div>
+<pre><code>## Warning in vismodel(rspecdata, visual = &quot;cie10&quot;, illum = &quot;D65&quot;, vonkries =
+## TRUE, : The spectral data contain 10 negative value(s), which may produce
+## unexpected results. Consider using procspec() to correct them.</code></pre>
+<div class="sourceCode" id="section-cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb107-1"><a href="#section-cb107-1" aria-hidden="true" tabindex="-1"></a>bee_d7 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">21</span><span class="sc">:</span><span class="dv">23</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb107-2"><a href="#section-cb107-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb107-3"><a href="#section-cb107-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb107-4"><a href="#section-cb107-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span></code></pre></div>
+<pre><code>## Warning in vismodel(DisData[, c(1, 21:23)], visual = &quot;apis&quot;, achromatic = &quot;l&quot;, :
+## The spectral data contain 10 negative value(s), which may produce unexpected
+## results. Consider using procspec() to correct them.</code></pre>
+<div class="sourceCode" id="section-cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb109-1"><a href="#section-cb109-1" aria-hidden="true" tabindex="-1"></a>hsd7 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d7, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb109-2"><a href="#section-cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd7,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#0062AEFF&quot;</span>, <span class="st">&quot;#777E8EFF&quot;</span>, <span class="st">&quot;#E08B9BFF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb110-1"><a href="#section-cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor8 ----</span></span>
+<span id="section-cb110-2"><a href="#section-cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">24</span><span class="sc">:</span><span class="dv">27</span>)])</span>
+<span id="section-cb110-3"><a href="#section-cb110-3" aria-hidden="true" tabindex="-1"></a>bee_d8 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">24</span><span class="sc">:</span><span class="dv">27</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb110-4"><a href="#section-cb110-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb110-5"><a href="#section-cb110-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb110-6"><a href="#section-cb110-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb110-7"><a href="#section-cb110-7" aria-hidden="true" tabindex="-1"></a>hsd8 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d8, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb110-8"><a href="#section-cb110-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd8,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#78991BFF&quot;</span>, <span class="st">&quot;#44B6DAFF&quot;</span> ,</span>
+<span id="section-cb110-9"><a href="#section-cb110-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;#0081B5FF&quot;</span> ,<span class="st">&quot;#1E78BEFF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb111-1"><a href="#section-cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor9 ----</span></span>
+<span id="section-cb111-2"><a href="#section-cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">28</span><span class="sc">:</span><span class="dv">31</span>)])</span>
+<span id="section-cb111-3"><a href="#section-cb111-3" aria-hidden="true" tabindex="-1"></a>bee_d9 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">28</span><span class="sc">:</span><span class="dv">31</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb111-4"><a href="#section-cb111-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb111-5"><a href="#section-cb111-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb111-6"><a href="#section-cb111-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb111-7"><a href="#section-cb111-7" aria-hidden="true" tabindex="-1"></a>hsd9 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d9, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb111-8"><a href="#section-cb111-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd9,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#2069BAFF&quot;</span>, <span class="st">&quot;#77AE5CFF&quot;</span>, </span>
+<span id="section-cb111-9"><a href="#section-cb111-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;#83B9CDFF&quot;</span>, <span class="st">&quot;#C87892FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb112-1"><a href="#section-cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor10 ----</span></span>
+<span id="section-cb112-2"><a href="#section-cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span><span class="sc">:</span><span class="dv">35</span>)])</span>
+<span id="section-cb112-3"><a href="#section-cb112-3" aria-hidden="true" tabindex="-1"></a>bee_d10 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">32</span><span class="sc">:</span><span class="dv">35</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb112-4"><a href="#section-cb112-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb112-5"><a href="#section-cb112-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb112-6"><a href="#section-cb112-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb112-7"><a href="#section-cb112-7" aria-hidden="true" tabindex="-1"></a>hsd10 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d10, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb112-8"><a href="#section-cb112-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd10,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#FFD31BFF&quot;</span>, <span class="st">&quot;#BCB227FF&quot;</span> ,</span>
+<span id="section-cb112-9"><a href="#section-cb112-9" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;#E398A0FF&quot;</span> ,<span class="st">&quot;#D286A3FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb113-1"><a href="#section-cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor11 ----</span></span>
+<span id="section-cb113-2"><a href="#section-cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">36</span><span class="sc">:</span><span class="dv">40</span>)])</span>
+<span id="section-cb113-3"><a href="#section-cb113-3" aria-hidden="true" tabindex="-1"></a>bee_d11 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">36</span><span class="sc">:</span><span class="dv">40</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb113-4"><a href="#section-cb113-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb113-5"><a href="#section-cb113-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb113-6"><a href="#section-cb113-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb113-7"><a href="#section-cb113-7" aria-hidden="true" tabindex="-1"></a>hsd11 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d11, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb113-8"><a href="#section-cb113-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd11,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#F1BF20FF&quot;</span>, <span class="st">&quot;#ECA3ABFF&quot;</span>, <span class="st">&quot;#65B3BDFF&quot;</span>, </span>
+<span id="section-cb113-9"><a href="#section-cb113-9" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;#9DB8F0FF&quot;</span> ,<span class="st">&quot;#82A320FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb114-1"><a href="#section-cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor12 ----</span></span>
+<span id="section-cb114-2"><a href="#section-cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">41</span><span class="sc">:</span><span class="dv">44</span>)])</span>
+<span id="section-cb114-3"><a href="#section-cb114-3" aria-hidden="true" tabindex="-1"></a>bee_d12 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">41</span><span class="sc">:</span><span class="dv">44</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>, </span>
+<span id="section-cb114-4"><a href="#section-cb114-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb114-5"><a href="#section-cb114-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb114-6"><a href="#section-cb114-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vonkries =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb114-7"><a href="#section-cb114-7" aria-hidden="true" tabindex="-1"></a>hsd12 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d12, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb114-8"><a href="#section-cb114-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd12,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#8CA5ADFF&quot;</span>, <span class="st">&quot;#0095B4FF&quot;</span>, </span>
+<span id="section-cb114-9"><a href="#section-cb114-9" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;#C7AA89FF&quot;</span> ,<span class="st">&quot;#DD83A4FF&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="section-cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb115-1"><a href="#section-cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- distractor13 ----</span></span>
+<span id="section-cb115-2"><a href="#section-cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spec2rgb</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">45</span><span class="sc">:</span><span class="dv">48</span>)])</span>
+<span id="section-cb115-3"><a href="#section-cb115-3" aria-hidden="true" tabindex="-1"></a>bee_d13 <span class="ot">&lt;-</span> <span class="fu">vismodel</span>(DisData[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">45</span><span class="sc">:</span><span class="dv">48</span>)], <span class="at">visual =</span> <span class="st">&quot;apis&quot;</span>,</span>
+<span id="section-cb115-4"><a href="#section-cb115-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">achromatic =</span> <span class="st">&quot;l&quot;</span>, <span class="at">illum =</span> <span class="st">&quot;D65&quot;</span>, </span>
+<span id="section-cb115-5"><a href="#section-cb115-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">qcatch =</span> <span class="st">&quot;Ei&quot;</span>, <span class="at">bkg =</span> BkgData<span class="sc">$</span>GB1_10, </span>
+<span id="section-cb115-6"><a href="#section-cb115-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">vonkries  =</span> T, <span class="at">relative =</span> F)</span>
+<span id="section-cb115-7"><a href="#section-cb115-7" aria-hidden="true" tabindex="-1"></a>hsd13 <span class="ot">&lt;-</span> <span class="fu">colspace</span>(bee_d13, <span class="at">space =</span> <span class="st">&quot;hexagon&quot;</span>)</span>
+<span id="section-cb115-8"><a href="#section-cb115-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd13,<span class="at">cex =</span> <span class="fl">1.5</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;#CE4852FF&quot;</span> ,<span class="st">&quot;#7DA718FF&quot;</span> ,</span>
+<span id="section-cb115-9"><a href="#section-cb115-9" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;#537162FF&quot;</span>, <span class="st">&quot;#DE8F36FF&quot;</span> ))</span></code></pre></div>
+<div id="section-hex-models-results" class="section level4">
+<h4>Hex Models Results</h4>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="Position2-label" for="Position2">Choose the position of the light source</label>
+<div>
+<select id="Position2"><option value="P1" selected>P1</option>
+<option value="P2">P2</option>
+<option value="P3">P3</option>
+<option value="P4">P4</option>
+<option value="P5">P5</option>
+<option value="P6">P6</option>
+<option value="P7">P7</option>
+<option value="P8">P8</option>
+<option value="P9">P9</option>
+<option value="P10">P10</option>
+<option value="P11">P11</option>
+<option value="P12">P12</option>
+<option value="P13">P13</option>
+<option value="P14">P14</option>
+<option value="P15">P15</option></select>
+<script type="application/json" data-for="Position2" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<p><div id="outae4b862cbb2991d1" class="shiny-plot-output" style="width:100%;height:400px;"></div></p>
+</div>
+</div>
+</div>
+<div id="section-stimulus" class="section level2">
+<h2>Stimulus</h2>
+<div id="section-spectral-characterization" class="section level3">
+<h3>Spectral Characterization</h3>
+<div id="section-illumination-1-mm-spot" class="section level4">
+<h4>Illumination = 1 mm spot</h4>
+<div class="sourceCode" id="section-cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb116-1"><a href="#section-cb116-1" aria-hidden="true" tabindex="-1"></a>IriPoint3 <span class="ot">&lt;-</span> <span class="fu">aggspec</span>(IriPoint2, <span class="at">by =</span> <span class="dv">4</span>, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>## Error in is.data.frame(x): object &#39;IriPoint2&#39; not found</code></pre>
+<div class="sourceCode" id="section-cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb118-1"><a href="#section-cb118-1" aria-hidden="true" tabindex="-1"></a>ForIrP2 <span class="ot">&lt;-</span> </span>
+<span id="section-cb118-2"><a href="#section-cb118-2" aria-hidden="true" tabindex="-1"></a>  IriPoint3 <span class="sc">%&gt;%</span> </span>
+<span id="section-cb118-3"><a href="#section-cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span> (Angle, Reflectance, <span class="sc">-</span> wl) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb118-4"><a href="#section-cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">halfSpan =</span> <span class="fu">as.factor</span>(<span class="fu">substr</span>(Angle, <span class="dv">4</span>,<span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb118-5"><a href="#section-cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (<span class="sc">-</span>Angle)</span></code></pre></div>
+<pre><code>## Error in gather(., Angle, Reflectance, -wl): object &#39;IriPoint3&#39; not found</code></pre>
+<div class="sourceCode" id="section-cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb120-1"><a href="#section-cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span> (ForIrP2, <span class="fu">aes</span>(wl, Reflectance)) <span class="sc">+</span></span>
+<span id="section-cb120-2"><a href="#section-cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>halfSpan), <span class="at">size=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="section-cb120-3"><a href="#section-cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="section-cb120-4"><a href="#section-cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#e59f16&quot;</span>,<span class="st">&quot;#1973b5&quot;</span>,<span class="st">&quot;#40748F&quot;</span>))<span class="sc">+</span></span>
+<span id="section-cb120-5"><a href="#section-cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="section-cb120-6"><a href="#section-cb120-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="section-cb120-7"><a href="#section-cb120-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb120-8"><a href="#section-cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="section-cb120-9"><a href="#section-cb120-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="sc">+</span><span class="fl">2.5</span>))<span class="sc">+</span></span>
+<span id="section-cb120-10"><a href="#section-cb120-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Reflectance (%)&quot;</span>)<span class="sc">+</span></span>
+<span id="section-cb120-11"><a href="#section-cb120-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Wavelength (nm)&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in ggplot(ForIrP2, aes(wl, Reflectance)): object &#39;ForIrP2&#39; not found</code></pre>
+</div>
+<div id="section-illumination-1-cm-spot" class="section level4">
+<h4>Illumination = 1 cm spot</h4>
+<p>Position 3 as an example</p>
+<div class="sourceCode" id="section-cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb122-1"><a href="#section-cb122-1" aria-hidden="true" tabindex="-1"></a>ForP03 <span class="ot">&lt;-</span> </span>
+<span id="section-cb122-2"><a href="#section-cb122-2" aria-hidden="true" tabindex="-1"></a>  IriData <span class="sc">%&gt;%</span> </span>
+<span id="section-cb122-3"><a href="#section-cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (wl, <span class="fu">contains</span> (<span class="st">&quot;P03&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb122-4"><a href="#section-cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span> (Pos, Reflectance, <span class="sc">-</span> wl) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb122-5"><a href="#section-cb122-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">Angle =</span> <span class="fu">substr</span>(Pos,<span class="dv">5</span>,<span class="dv">6</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="section-cb122-6"><a href="#section-cb122-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Angle <span class="sc">!=</span> <span class="st">&quot;07&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="section-cb122-7"><a href="#section-cb122-7" aria-hidden="true" tabindex="-1"></a>         Angle <span class="sc">!=</span> <span class="st">&quot;12&quot;</span>)</span>
+<span id="section-cb122-8"><a href="#section-cb122-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="section-cb122-9"><a href="#section-cb122-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span> (ForP03, <span class="fu">aes</span>(wl, Reflectance)) <span class="sc">+</span></span>
+<span id="section-cb122-10"><a href="#section-cb122-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color=</span>Angle), <span class="at">size=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="section-cb122-11"><a href="#section-cb122-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="section-cb122-12"><a href="#section-cb122-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#e59f16&quot;</span>,<span class="st">&quot;#1fa072&quot;</span>,<span class="st">&quot;#1973b5&quot;</span>))<span class="sc">+</span></span>
+<span id="section-cb122-13"><a href="#section-cb122-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="section-cb122-14"><a href="#section-cb122-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="section-cb122-15"><a href="#section-cb122-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="section-cb122-16"><a href="#section-cb122-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="section-cb122-17"><a href="#section-cb122-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">vjust=</span><span class="sc">+</span><span class="fl">2.5</span>))<span class="sc">+</span></span>
+<span id="section-cb122-18"><a href="#section-cb122-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Reflectance (%)&quot;</span>)<span class="sc">+</span></span>
+<span id="section-cb122-19"><a href="#section-cb122-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Wavelength (nm)&quot;</span>)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="section-visualization-of-the-blue-stimulus-fig.-s6" class="section level4">
+<h4>Visualization of the blue stimulus Fig. S6</h4>
+<div class="sourceCode" id="section-cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="section-cb123-1"><a href="#section-cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BlueData[,<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="IridUntwined2_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("section-TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#section-TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
