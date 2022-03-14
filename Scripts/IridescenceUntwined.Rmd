@@ -1,6 +1,6 @@
 ---
 title: "Iridescence Untwined Statistical Analysis and Figures"
-author: "Authors: Leslie Ng & Laura Ospina-Rozo"
+author: "Authors removed for double blind review"
 date: "4/11/2021"
 output:
   html_document: 
