@@ -270,6 +270,7 @@ Here, the simulation is set to a viewing distance (d) of 50 mm and a height (h) 
 
 lm1 <- glm(CHOICE~CHOICENUM, family = binomial, data = B_CHOICE)
 summary(lm1)
+confint(lm1)
 
 # Generate values for Fig. 5: Predicted mean proportion of correct choices
 
